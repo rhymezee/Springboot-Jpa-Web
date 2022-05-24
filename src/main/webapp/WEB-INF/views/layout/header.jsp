@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +16,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 		<a class="navbar-brand" href="/">물 결</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -19,17 +23,17 @@
 		</button>
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<c:choose>
-				<c:when test="${empty sessionScope.principal}">
+				<c:when test="${empty principal}">
 					<ul class="navbar-nav">
-						<li class="nav-item"><a class="nav-link" href="/user/loginForm">로그인</a></li>
-						<li class="nav-item"><a class="nav-link" href="/user/joinForm">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/loginForm">로그인</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/joinForm">회원가입</a></li>
 					</ul>
 				</c:when>
 				
 				<c:otherwise>
 					<ul class="navbar-nav">
-						<li class="nav-item"><a class="nav-link" href="/user/logout">로그아웃</a></li>
-						<li class="nav-item"><a class="nav-link" href="/user/userForm">내정보</a></li>
+						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/form">내정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="/board/index">게시판</a></li>
 					</ul>
 				</c:otherwise>
