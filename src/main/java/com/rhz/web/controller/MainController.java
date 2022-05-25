@@ -12,3 +12,7 @@ public class MainController {
 	}
 
 }
+
+/*
+@AuthenticationPrincipal PrincipalDetail principal
+*/

@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class UserApiController {
 	
 	private final UserService userService;
-	
+
 	@PostMapping("/auth/joinProc")
 	public ResponseDto<String> join(@RequestBody User user) {
 		userService.join(user);

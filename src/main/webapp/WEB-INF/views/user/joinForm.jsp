@@ -6,15 +6,15 @@
 	<form>
 		<div class="form-group">
 			<label for="username">아이디</label>
-			<input type="text" class="form-control" id="username" placeholder="아이디를 입력해주세요.">
+			<input type="text" class="form-control" id="username"/>
 		</div>
 		<div class="form-group">
 			<label for="password">비밀번호</label>
-			<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요.">
+			<input type="password" class="form-control" id="password"/>
 		</div>
 		<div class="form-group">
 			<label for="characterName">캐릭터명</label>
-			<input type="text" class="form-control" id="characterName" placeholder="캐릭터명을 입력해주세요.">
+			<input type="text" class="form-control" id="characterName"/>
 		</div>
 	</form>
 	<button id="btn-save" class="btn btn-primary">회원가입</button>
