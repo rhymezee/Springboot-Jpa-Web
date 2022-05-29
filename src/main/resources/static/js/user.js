@@ -3,6 +3,10 @@ let index = {
 		$("#btn-save").on("click", () => { // this를 binding 하기 위해서 화살표 함수 사용
 			this.save();
 		});
+		
+		$("#btn-update").on("click", () => {
+			this.update();
+		});
 	},
 	
 	save: function() {
@@ -22,7 +26,29 @@ let index = {
 			alert("회원가입이 완료되었습니다.");
 			location.href = "/user/loginForm";
 		}).fail(function(error) {
-			console.log(JSON.stringify(error));
+			alert(JSON.stringify(error));
+		});
+	},
+	
+	update: function() {
+		let data = {
+			id : $("#id").val(),
+			username : $("#username").val(),
+			password : $("#password").val(),
+			characterName : $("#characterName").val()
+		};
+		
+		$.ajax({
+			type: "PUT",
+			url: "/user",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json"
+		}).done(function(response) {
+			alert("회원수정이 완료되었습니다.");
+			location.href = "/";
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
 		});
 	}
 }

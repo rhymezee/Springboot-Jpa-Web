@@ -6,11 +6,11 @@
 	<form action="/auth/loginProc" method="post">
 		<div class="form-group">
 			<label for="username">아이디</label>
-			<input type="text" class="form-control" id="username" name="username"/>
+			<input type="text" class="form-control" id="username" name="username" placeholder="Enter ID"/>
 		</div>
 		<div class="form-group">
 			<label for="password">비밀번호</label>
-			<input type="password" class="form-control" id="password" name="password"/>
+			<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password"/>
 		</div>
 		<button id="btn-login" class="btn btn-primary">로그인</button>
 	</form>

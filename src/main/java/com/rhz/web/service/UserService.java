@@ -28,6 +28,24 @@ public class UserService {
 		user.setRole(RoleType.USER);
 		userRepository.save(user);
 	}
+	
+	@Transactional
+	public void update(User user) {
+		// 1. 영속성 컨텍스트에 User 오브젝트를 영속화 시킨다.
+		User persistance = userRepository.findById(user.getId()).orElseThrow(() -> {
+			return new IllegalArgumentException("회원을 찾을 수 없습니다.");
+		});
+		
+		// 2. 영속화된 User 오브젝트를 수정한다.
+		String rawPassword = user.getPassword();
+		String encPassword = encoder.encode(rawPassword);
+		persistance.setPassword(encPassword);
+		persistance.setCharacterName(user.getCharacterName());
+		
+		// 3. update() 메서드 종료 -> 트랜잭션 종료 -> commit
+		
+		// 4. 영속화된 persistance 오브젝트의 변화가 감지되면 더티체킹이 되어 DB로 flush -> update 완료
+	}
 
 }
 
