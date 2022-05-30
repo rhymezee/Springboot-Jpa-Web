@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rhz.web.config.auth.PrincipalDetail;
 import com.rhz.web.model.Board;
+import com.rhz.web.model.dto.ReplyWriteRequestDto;
 import com.rhz.web.repository.BoardRepository;
+import com.rhz.web.repository.ReplyRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 	
 	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
 	
 	@Transactional(readOnly = true)
 	public Page<Board> list(Pageable pageable) {
@@ -68,5 +71,64 @@ public class BoardService {
 			boardRepository.deleteById(id);
 		}
 	}
+	
+	@Transactional
+	public void replyWrite(ReplyWriteRequestDto replyWriteRequestDto) {
+		replyRepository.mSave(replyWriteRequestDto.getUserId(), replyWriteRequestDto.getBoardId(), replyWriteRequestDto.getContent());
+	}
+	
+	@Transactional
+	public void replyDelete(int replyId) {
+		replyRepository.deleteById(replyId);
+	}
 
 }
+
+/*
+@Transactional
+public void replyWrite(PrincipalDetail principal, int boardId, Reply requestReply) {
+	requestReply.setUser(principal.getUser());
+	
+	Board board = boardRepository.findById(boardId).orElseThrow(() -> {
+		return new IllegalArgumentException("게시글을 찾을 수 없습니다.");
+	});
+	requestReply.setBoard(board);
+	
+	replyRepository.save(requestReply);
+}
+
+@Transactional
+public void replyWrite(ReplyWriteRequestDto replyWriteRequestDto) {
+	User user = userRepository.findById(replyWriteRequestDto.getUserId()).orElseThrow(() -> {
+		return new IllegalArgumentException("회원을 찾을 수 없습니다.");
+	});
+	
+	Board board = boardRepository.findById(replyWriteRequestDto.getBoardId()).orElseThrow(() -> {
+		return new IllegalArgumentException("게시글을 찾을 수 없습니다.");
+	});
+
+	Reply reply = Reply.builder()
+		.user(user)
+		.board(board)
+		.content(replyWriteRequestDto.getContent())
+		.build();
+	
+	replyRepository.save(reply);
+}
+
+@Transactional
+public void replyWrite(ReplyWriteRequestDto replyWriteRequestDto) {
+	User user = userRepository.findById(replyWriteRequestDto.getUserId()).orElseThrow(() -> {
+		return new IllegalArgumentException("회원을 찾을 수 없습니다.");
+	});
+	
+	Board board = boardRepository.findById(replyWriteRequestDto.getBoardId()).orElseThrow(() -> {
+		return new IllegalArgumentException("게시글을 찾을 수 없습니다.");
+	});
+
+	Reply reply = new Reply();
+	reply.update(user, board, replyWriteRequestDto.getContent());
+	
+	replyRepository.save(reply);
+}
+*/

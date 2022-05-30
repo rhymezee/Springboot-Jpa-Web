@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rhz.web.config.auth.PrincipalDetail;
 import com.rhz.web.model.Board;
+import com.rhz.web.model.dto.ReplyWriteRequestDto;
 import com.rhz.web.model.dto.ResponseDto;
 import com.rhz.web.service.BoardService;
 
@@ -39,5 +40,25 @@ public class BoardApiController {
 		boardService.delete(id, principal);
 		return new ResponseDto<String>(HttpStatus.OK.value(), "삭제가 완료되었습니다.");
 	}
+	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<String> replyWrite(@RequestBody ReplyWriteRequestDto replyWriteRequestDto) {
+		boardService.replyWrite(replyWriteRequestDto);
+		return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 작성이 완료되었습니다.");
+	}
+	
+	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+	public ResponseDto<String> replyDelete(@PathVariable int replyId) {
+		boardService.replyDelete(replyId);
+		return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 삭제가 완료되었습니다.");
+	}
 
 }
+
+/*
+@PostMapping("/api/board/{boardId}/reply")
+public ResponseDto<String> replyWrite(@RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal, @PathVariable int boardId) {
+	boardService.replyWrite(principal, boardId, reply);
+	return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 작성이 완료되었습니다.");
+}
+*/

@@ -3,6 +3,7 @@ package com.rhz.web.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,9 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,8 +54,10 @@ public class Board {
 	// @JoinColumn(name = "replyId") 를 하게 되면 제1정규화가 깨진다.
 	// Board(One) : Reply(Many) 연관관계
 	// mappedBy : 연관관계의 주인이 아니다. (나는 FK가 아니다. -> DB에 컬럼 만들지마. -> Reply 테이블의 boardId가 FK다.)
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // OneToMany의 Default는 LAZY 전략 -> EAGER로 바꿔서 상세보기 시 바로 가져올 예정.
-	private List<Reply> reply; // 1개의 게시글엔 N개의 댓글이 있을 수 있으니 List가 되어야 한다.
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // OneToMany의 Default는 LAZY 전략 -> EAGER로 바꿔서 상세보기 시 바로 가져올 예정.
+	@JsonIgnoreProperties({"board"})
+	@OrderBy("id desc")
+	private List<Reply> replys; // 1개의 게시글엔 N개의 댓글이 있을 수 있으니 List가 되어야 한다.
 	
 	@CreationTimestamp
 	private Timestamp createDate;

@@ -23,8 +23,14 @@ let index = {
 			contentType: "application/json; charset=utf-8", // 위 data는 http body 데이터이므로 MIME 타입 설정해줘야 함.
 			dataType: "json" // 요청에 대한 응답이 왔을 때, json을 javascript object로 변환해서 받아준다. (생략해도 자동으로 javascript object로 변환해서 받아줌)
 		}).done(function(response) {
-			alert("회원가입이 완료되었습니다.");
-			location.href = "/user/loginForm";
+			if (response.status === 500) {
+				alert("회원가입에 실패했습니다.");
+				location.href = "/auth/joinForm";
+			}
+			else {
+				alert("회원가입이 완료되었습니다.");
+				location.href = "/auth/loginForm";
+			}
 		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});
