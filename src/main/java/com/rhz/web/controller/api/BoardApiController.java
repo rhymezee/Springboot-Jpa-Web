@@ -48,8 +48,8 @@ public class BoardApiController {
 	}
 	
 	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
-	public ResponseDto<String> replyDelete(@PathVariable int replyId) {
-		boardService.replyDelete(replyId);
+	public ResponseDto<String> replyDelete(@PathVariable int replyId, @AuthenticationPrincipal PrincipalDetail principal) {
+		boardService.replyDelete(replyId, principal);
 		return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 삭제가 완료되었습니다.");
 	}
 

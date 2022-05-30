@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rhz.web.config.auth.PrincipalDetail;
 import com.rhz.web.model.Board;
+import com.rhz.web.model.Reply;
 import com.rhz.web.model.dto.ReplyWriteRequestDto;
 import com.rhz.web.repository.BoardRepository;
 import com.rhz.web.repository.ReplyRepository;
@@ -78,8 +79,17 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void replyDelete(int replyId) {
-		replyRepository.deleteById(replyId);
+	public void replyDelete(int replyId, PrincipalDetail principal) {
+		Reply reply = replyRepository.findById(replyId).orElseThrow(() -> {
+			return new IllegalArgumentException("해당 댓글을 삭제할 수 없습니다.");
+		});
+		
+		if (reply.getUser().getId() != principal.getUser().getId()) {
+			throw new IllegalStateException("본인이 작성한 댓글이 아닙니다.");
+		}
+		else {
+			replyRepository.deleteById(replyId);
+		}
 	}
 
 }
