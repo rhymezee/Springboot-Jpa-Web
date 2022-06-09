@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class PrincipalDetailService implements UserDetailsService {
+public class PrincipalDetailsService implements UserDetailsService {
 	
 	private final UserRepository userRepository;
 
@@ -23,7 +23,7 @@ public class PrincipalDetailService implements UserDetailsService {
 		User principal = userRepository.findByUsername(username).orElseThrow(() -> {
 			return new UsernameNotFoundException("해당 사용자 " + username + "를 찾을 수 없습니다.");
 		});
-		return new PrincipalDetail(principal); // 이 때 시큐리티 세션에 User 정보가 UserDetails 타입으로 저장된다.
+		return new PrincipalDetails(principal); // 이 때 시큐리티 세션에 User 정보가 UserDetails 타입으로 저장된다.
 	}
 
 }

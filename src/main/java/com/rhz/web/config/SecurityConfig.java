@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.rhz.web.config.auth.PrincipalDetailService;
+import com.rhz.web.config.auth.PrincipalDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration // Bean 등록
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private final PrincipalDetailService principalDetailService;
+	private final PrincipalDetailsService principalDetailService;
 
 	@Bean
 	public BCryptPasswordEncoder encodePWD() {

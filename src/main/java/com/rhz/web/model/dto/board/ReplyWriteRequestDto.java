@@ -1,4 +1,4 @@
-package com.rhz.web.model.dto;
+package com.rhz.web.model.dto.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

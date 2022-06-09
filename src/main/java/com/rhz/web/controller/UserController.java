@@ -22,3 +22,23 @@ public class UserController {
 	}
 
 }
+
+/*
+@PostMapping("/auth/joinProc")
+public String join(@Valid JoinRequestDto joinRequestDto, BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) {
+		Map<String, String> errorMap = new HashMap<>();
+		
+		for (FieldError error : bindingResult.getFieldErrors()) {
+			errorMap.put(error.getField(), error.getDefaultMessage());
+		}
+		
+		throw new CustomValidationException("유효성 검사 실패", errorMap);
+	}
+	else {
+		User user = joinRequestDto.toEntity();
+		userService.join(user);
+		return "user/loginForm";
+	}
+}
+*/

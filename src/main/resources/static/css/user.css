@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.id_ok {
+	color: blue;
+	font-style: italic;
+	display: none;
+}
+
+.id_already {
+	color: red;
+	font-style: italic;
+	display: none;
+}

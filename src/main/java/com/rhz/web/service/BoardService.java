@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rhz.web.config.auth.PrincipalDetail;
+import com.rhz.web.config.auth.PrincipalDetails;
 import com.rhz.web.model.Board;
 import com.rhz.web.model.Reply;
-import com.rhz.web.model.dto.ReplyWriteRequestDto;
+import com.rhz.web.model.dto.board.ReplyWriteRequestDto;
 import com.rhz.web.repository.BoardRepository;
 import com.rhz.web.repository.ReplyRepository;
 
@@ -39,13 +39,13 @@ public class BoardService {
 	}
 	
 	@Transactional 
-	public void write(Board board, PrincipalDetail principal) {
+	public void write(Board board, PrincipalDetails principal) {
 		board.setUser(principal.getUser());
 		boardRepository.save(board);
 	}
 	
 	@Transactional
-	public void update(int id, Board requestBoard, PrincipalDetail principal) {
+	public void update(int id, Board requestBoard, PrincipalDetails principal) {
 		Board board = boardRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("해당 글을 수정할 수 없습니다.");
 		});
@@ -60,7 +60,7 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void delete(int id, PrincipalDetail principal) {
+	public void delete(int id, PrincipalDetails principal) {
 		Board board = boardRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("해당 글을 삭제할 수 없습니다.");
 		});
@@ -79,7 +79,7 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void replyDelete(int replyId, PrincipalDetail principal) {
+	public void replyDelete(int replyId, PrincipalDetails principal) {
 		Reply reply = replyRepository.findById(replyId).orElseThrow(() -> {
 			return new IllegalArgumentException("해당 댓글을 삭제할 수 없습니다.");
 		});

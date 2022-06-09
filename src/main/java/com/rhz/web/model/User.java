@@ -1,6 +1,6 @@
 package com.rhz.web.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.CreationTimestamp;
+import javax.persistence.PrePersist;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,11 +37,22 @@ public class User {
 	@Column(unique = true, nullable = false, length = 20)
 	private String characterName;
 	
+	private String profileImageUrl;
+	
 	// @ColumnDefault("'user'") // ColumnDefautl에서 문자는 ''을 넣어줘야 한다.
 	@Enumerated(EnumType.STRING) // DB에는 RoleType이라는 게 없기 때문에, 해당 컬럼은 스트링이라는 걸 알려줌.
 	private RoleType role; // Enum으로 변경 예정
 	
-	@CreationTimestamp // INSERT가 될 때 시간이 자동으로 입력됨.
-	private Timestamp createDate;
+	private LocalDateTime createDate;
+	
+	@PrePersist // Insert 되기 직전에 실행
+	public void createDate() {
+		this.createDate = LocalDateTime.now();
+	}
 
 }
+
+/*
+@CreationTimestamp // INSERT가 될 때 시간이 자동으로 입력됨.
+private Timestamp createDate;
+*/

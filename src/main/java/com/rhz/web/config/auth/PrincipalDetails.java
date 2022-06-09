@@ -8,15 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.rhz.web.model.User;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
-public class PrincipalDetail implements UserDetails {
+@Data
+public class PrincipalDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1826588363331725438L;
 	private User user;
 	
-	public PrincipalDetail(User user) {
+	public PrincipalDetails(User user) {
 		this.user = user;
 	}
 

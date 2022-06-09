@@ -15,6 +15,8 @@
 		글 번호 : <span id="id"><i>${board.id}</i></span>
 		<br/>
 		작성자 : <span><i>${board.user.username}</i></span>
+		<br/>
+		조회수 : <span><i>${board.count}</i></span>
 	</div>
 	
 	<br/>
